@@ -1,7 +1,7 @@
-FROM alpine:3.3
+FROM alpine
 
 # See http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Advanced_APK_Usage
-RUN apk add --no-cache strongswan=5.3.5-r1
+RUN apk update && apk upgrade && apk add --no-cache iptables curl openssl strongswan
 
 # Strongswan Configuration
 ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
