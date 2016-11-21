@@ -14,6 +14,8 @@ Add init.sh /usr/bin/init
 ADD web /www
 
 VOLUME /www
+VOLUME /lib/modules:/lib/modules
+
 
 EXPOSE 80 500/udp 4500/udp
 
