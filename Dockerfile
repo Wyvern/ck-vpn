@@ -16,6 +16,7 @@ ADD web /www
 VOLUME /www
 VOLUME /lib/modules:/lib/modules
 
+ENV Profile IPSecVPN
 
 EXPOSE 80 500/udp 4500/udp
 
