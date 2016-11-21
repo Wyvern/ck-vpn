@@ -62,10 +62,10 @@ init_mobileconfig() {
 <dict>
     <!-- Set the name to whatever you like, it is used in the profile list on the device -->
     <key>PayloadDisplayName</key>
-    <string>CK-VPN</string>
+    <string>$PROFILE</string>
     <!-- This is a reverse-DNS style unique identifier used to detect duplicate profiles -->
     <key>PayloadIdentifier</key>
-    <string>com.cybertk.vpn</string>
+    <string>$PROFILE</string>
     <!-- A globally unique identifier, use uuidgen on Linux/Mac OS X to generate it -->
     <key>PayloadUUID</key>
     <string>$(uuidgen)</string>
@@ -89,7 +89,7 @@ init_mobileconfig() {
             <integer>1</integer>
             <!-- This is the name of the VPN connection as seen in the VPN application later -->
             <key>UserDefinedName</key>
-            <string>CK-VPN</string>
+            <string>$PROFILE</string>
             <key>VPNType</key>
             <string>IKEv2</string>
             <key>IKEv2</key>
