@@ -17,6 +17,7 @@ VOLUME /www
 VOLUME /lib/modules:/lib/modules
 
 ENV PROFILE IPSecVPN
+ENV PSK   wyvern
 
 EXPOSE 80 500/udp 4500/udp
 
