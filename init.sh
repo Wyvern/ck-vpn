@@ -156,7 +156,7 @@ main() {
     httpd -h "$CONFIG_HTTP_HOME"
     
     echo "IPSec: starting ipsec"
-    exec /usr/sbin/ipsec start --nofork $CK_VPN_IPSEC_DEBUG_OPTS
+    /usr/sbin/ipsec start --nofork $CK_VPN_IPSEC_DEBUG_OPTS
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
