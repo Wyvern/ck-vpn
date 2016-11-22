@@ -103,7 +103,7 @@ init_mobileconfig() {
                 <string>$SERVER</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
-                <string>$PROFILE</string>
+                <string></string>
                 <!-- Use a pre-shared secret for authentication -->
                 <key>AuthenticationMethod</key>
                 <string>SharedSecret</string>
@@ -154,9 +154,9 @@ main() {
 
     echo "IPSec: starting http server on $server_address:80"
     httpd -h "$CONFIG_HTTP_HOME"
-    #$CK_VPN_IPSEC_DEBUG_OPTS
+    
     echo "IPSec: starting ipsec"
-    /usr/sbin/ipsec start --nofork 
+    /usr/sbin/ipsec start --nofork $CK_VPN_IPSEC_DEBUG_OPTS
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
