@@ -43,7 +43,7 @@ init_ipsec_config() {
     local secret="$1"
 
     echo ": PSK \"$secret\""
-    echo "ckvpn : EAP \"$secret\""
+    echo "vpn : EAP \"$secret\""
 }
 
 init_mobileconfig() {
@@ -96,11 +96,11 @@ init_mobileconfig() {
             <dict>
                 <!-- Hostname or IP address of the VPN server -->
                 <key>RemoteAddress</key>
-                <string>$tv_server_address</string>
+                <string>$SERVER</string>
                 <!-- Remote identity, can be a FQDN, a userFQDN, an IP or (theoretically) a certificate's subject DN. Can't be empty.
                      IMPORTANT: DNs are currently not handled correctly, they are always sent as identities of type FQDN -->
                 <key>RemoteIdentifier</key>
-                <string>$tv_server_address</string>
+                <string>$SERVER</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
                 <string>$PROFILE</string>
@@ -109,7 +109,7 @@ init_mobileconfig() {
                 <string>SharedSecret</string>
                 <!-- The actual secret -->
                 <key>SharedSecret</key>
-                <string>$tv_secret</string>
+                <string>$PSK</string>
                 <!-- No EAP -->
                 <key>ExtendedAuthEnabled</key>
                 <integer>0</integer>
@@ -135,27 +135,28 @@ get_public_ip() {
 
 main() {
     local server_address secret
-
-    server_address=$(get_public_ip)
-    secret="$(openssl rand -base64 32)"
+    #$(get_public_ip)
+    server_address=$SERVER
+    #"$(openssl rand -base64 32)"
+    secret=$PSK
 
     # Initialize if did not
     if [ ! -f "$CONFIG_IPSEC_SECRETS_PATH" ]; then
-        echo "ck-vpn: initializing"
+        echo "IPSec: initializing"
         init_ipsec_config "$secret" >"$CONFIG_IPSEC_SECRETS_PATH"
         init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
     fi
 
     ln -sf "$CONFIG_IPSEC_SECRETS_PATH" /etc/ipsec.secrets
 
-    echo "ck-vpn: configuring route tables"
+    echo "IPSec: configuring route tables"
     config_route "$CONFIG_VIP"
 
-    echo "ck-vpn: starting http server on $server_address:80"
+    echo "IPSec: starting http server on $server_address:80"
     httpd -h "$CONFIG_HTTP_HOME"
-
-    echo "ck-vpn: starting ipsec"
-    /usr/sbin/ipsec start --nofork $CK_VPN_IPSEC_DEBUG_OPTS
+    #$CK_VPN_IPSEC_DEBUG_OPTS
+    echo "IPSec: starting ipsec"
+    /usr/sbin/ipsec start --nofork 
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
