@@ -23,7 +23,7 @@
 # SOFTWARE.
 
 # Customizations
-CONFIG_VIP=10.0.5.0/24
+CONFIG_VIP=10.0.1.0/24
 CONFIG_HTTP_HOME=/www
 CONFIG_MOBILECONFIG_PATH=$CONFIG_HTTP_HOME/vpn.mobileconfig
 CONFIG_IPSEC_SECRETS_PATH=$CONFIG_HTTP_HOME/ipsec.secrets
@@ -43,6 +43,7 @@ init_ipsec_config() {
     local secret="$1"
 
     echo ": PSK \"$secret\""
+    echo "vpn : EAP \"$secret\""
 }
 
 init_mobileconfig() {
@@ -61,10 +62,10 @@ init_mobileconfig() {
 <dict>
     <!-- Set the name to whatever you like, it is used in the profile list on the device -->
     <key>PayloadDisplayName</key>
-    <string>CK-VPN</string>
+    <string>$PROFILE</string>
     <!-- This is a reverse-DNS style unique identifier used to detect duplicate profiles -->
     <key>PayloadIdentifier</key>
-    <string>com.cybertk.vpn</string>
+    <string>$PROFILE</string>
     <!-- A globally unique identifier, use uuidgen on Linux/Mac OS X to generate it -->
     <key>PayloadUUID</key>
     <string>$(uuidgen)</string>
@@ -78,7 +79,7 @@ init_mobileconfig() {
         <dict>
             <!-- This is an extension of the identifier given above -->
             <key>PayloadIdentifier</key>
-            <string>com.cybertk.vpn.ikev2</string>
+            <string>${PROFILE}.ikev2</string>
             <!-- A globally unique identifier for this payload -->
             <key>PayloadUUID</key>
             <string>$(uuidgen)</string>
@@ -88,18 +89,18 @@ init_mobileconfig() {
             <integer>1</integer>
             <!-- This is the name of the VPN connection as seen in the VPN application later -->
             <key>UserDefinedName</key>
-            <string>CK-VPN</string>
+            <string>$PROFILE</string>
             <key>VPNType</key>
             <string>IKEv2</string>
             <key>IKEv2</key>
             <dict>
                 <!-- Hostname or IP address of the VPN server -->
                 <key>RemoteAddress</key>
-                <string>$tv_server_address</string>
+                <string>$SERVER</string>
                 <!-- Remote identity, can be a FQDN, a userFQDN, an IP or (theoretically) a certificate's subject DN. Can't be empty.
                      IMPORTANT: DNs are currently not handled correctly, they are always sent as identities of type FQDN -->
                 <key>RemoteIdentifier</key>
-                <string>$tv_server_address</string>
+                <string>$SERVER</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
                 <string></string>
@@ -108,7 +109,7 @@ init_mobileconfig() {
                 <string>SharedSecret</string>
                 <!-- The actual secret -->
                 <key>SharedSecret</key>
-                <string>$tv_secret</string>
+                <string>$PSK</string>
                 <!-- No EAP -->
                 <key>ExtendedAuthEnabled</key>
                 <integer>0</integer>
@@ -134,26 +135,27 @@ get_public_ip() {
 
 main() {
     local server_address secret
-
-    server_address=$(get_public_ip)
-    secret="$(openssl rand -base64 32)"
+    #$(get_public_ip)
+    server_address=$SERVER
+    #"$(openssl rand -base64 32)"
+    secret=$PSK
 
     # Initialize if did not
     if [ ! -f "$CONFIG_IPSEC_SECRETS_PATH" ]; then
-        echo "ck-vpn: initializing"
+        echo "IPSec: initializing"
         init_ipsec_config "$secret" >"$CONFIG_IPSEC_SECRETS_PATH"
         init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
     fi
 
     ln -sf "$CONFIG_IPSEC_SECRETS_PATH" /etc/ipsec.secrets
 
-    echo "ck-vpn: configuring route tables"
+    echo "IPSec: configuring route tables"
     config_route "$CONFIG_VIP"
 
-    echo "ck-vpn: starting http server on $server_address:80"
+    echo "IPSec: starting http server on $server_address:80"
     httpd -h "$CONFIG_HTTP_HOME"
-
-    echo "ck-vpn: starting ipsec"
+    
+    echo "IPSec: starting ipsec"
     /usr/sbin/ipsec start --nofork $CK_VPN_IPSEC_DEBUG_OPTS
 }
 
