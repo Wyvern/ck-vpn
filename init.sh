@@ -160,4 +160,4 @@ main() {
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
-# [[ -z "$CK_VPN_TEST" ]] && main "$@"
+[[ -z "$CK_VPN_TEST" ]] && main "$@"
