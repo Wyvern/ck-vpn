@@ -79,7 +79,7 @@ init_mobileconfig() {
         <dict>
             <!-- This is an extension of the identifier given above -->
             <key>PayloadIdentifier</key>
-            <string>com.cybertk.vpn.ikev2</string>
+            <string>${PROFILE}.ikev2</string>
             <!-- A globally unique identifier for this payload -->
             <key>PayloadUUID</key>
             <string>$(uuidgen)</string>
@@ -103,7 +103,7 @@ init_mobileconfig() {
                 <string>$tv_server_address</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
-                <string></string>
+                <string>$PROFILE</string>
                 <!-- Use a pre-shared secret for authentication -->
                 <key>AuthenticationMethod</key>
                 <string>SharedSecret</string>
