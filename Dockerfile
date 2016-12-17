@@ -16,7 +16,7 @@ Add init.sh /usr/bin/init
 ADD web /www
 
 VOLUME /www
-VOLUME /lib/modules:/lib/modules
+#VOLUME /lib/modules:/lib/modules
 
 ENV PROFILE IPSecVPN
 ENV PSK   wyvern
