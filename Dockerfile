@@ -9,7 +9,7 @@ ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
 ADD ./vpn_config/strongswan.conf /etc/strongswan.conf
 
 # Apps
-Add init.sh /usr/bin/init
+ADD init.sh /usr/bin/init
 
 # Web
 ADD web /www
