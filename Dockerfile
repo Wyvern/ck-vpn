@@ -2,7 +2,7 @@ FROM alpine
 MAINTAINER vpn <vpn@ifree.net>
 
 # See http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Advanced_APK_Usage
-RUN apk update && apk upgrade && apk add --no-cache iptables openssl strongswan
+RUN apk update && apk upgrade && apk add --no-cache iptables libressl strongswan
 
 
 # Strongswan Configuration
@@ -16,7 +16,6 @@ ADD init.sh /usr/bin/init
 ADD web /www
 
 VOLUME /www
-#VOLUME /lib/modules:/lib/modules
 
 ENV PROFILE IPSecVPN
 ENV PSK   wyvern
