@@ -153,7 +153,7 @@ main() {
     config_route "$CONFIG_VIP"
 
     echo "IPSec: starting http server on $server_address:80"
-    httpd -h "$CONFIG_HTTP_HOME"
+    #httpd -h "$CONFIG_HTTP_HOME"
     
     echo "IPSec: starting ipsec"
     #$CK_VPN_IPSEC_DEBUG_OPTS
