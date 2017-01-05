@@ -152,7 +152,7 @@ main() {
     echo "IPSec: configuring route tables"
     config_route "$CONFIG_VIP"
 
-    echo "IPSec: starting http server on $server_address:80"
+    #echo "IPSec: starting http server on $server_address:80"
     #httpd -h "$CONFIG_HTTP_HOME"
     
     echo "IPSec: starting ipsec"
