@@ -22,5 +22,4 @@ ENV SERVER   ifree.net
 
 EXPOSE 500/udp 4500/udp
 
-# ENTRYPOINT ["/usr/local/bin/init"]
 CMD /usr/bin/init
