@@ -43,7 +43,7 @@ init_ipsec_config() {
     local secret="$1"
 
     echo ": PSK \"$secret\""
-    echo "vpn : EAP \"$secret\""
+    echo "VPN : EAP \"$secret\""
 }
 
 init_mobileconfig() {
