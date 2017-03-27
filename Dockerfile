@@ -18,7 +18,7 @@ VOLUME /www
 
 ENV PROFILE IPSecVPN
 ENV PSK   wyvern
-ENV SERVER   ifree.net
+ENV SERVER   iFree.net
 
 EXPOSE 500/udp 4500/udp
 
