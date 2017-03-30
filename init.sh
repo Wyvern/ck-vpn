@@ -37,10 +37,9 @@ config_route() {
     sysctl -w net.ipv4.ip_no_pmtu_disc=1
 
     # https://wiki.strongswan.org/projects/strongswan/wiki/ForwardingAndSplitTunneling
-    sudo iptables -t nat -A POSTROUTING -s $vip -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
-    sudo iptables -t nat -A POSTROUTING -s $vip -o eth0 -j MASQUERADE
-    sudo iptables -t nat -I POSTROUTING -m policy --pol ipsec --dir out -j ACCEPT
-
+    iptables -t nat -A POSTROUTING -s $vip -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
+    iptables -t nat -A POSTROUTING -s $vip -o eth0 -j MASQUERADE
+    iptables -t nat -I POSTROUTING -m policy --pol ipsec --dir out -j ACCEPT
 }
 
 init_ipsec_config() {
