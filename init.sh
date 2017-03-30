@@ -33,8 +33,6 @@ config_route() {
 
     sysctl -w net.ipv4.ip_forward=1
     sysctl -w net.ipv6.conf.all.forwarding=1
-    
-    sysctl -w net.ipv4.ip_no_pmtu_disc=1
 
     # https://wiki.strongswan.org/projects/strongswan/wiki/ForwardingAndSplitTunneling
     iptables -t nat -A POSTROUTING -s $vip -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
