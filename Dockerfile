@@ -17,8 +17,8 @@ ADD web /www
 VOLUME /www
 
 ENV PROFILE IPSecVPN
-ENV PSK   wyvern
-ENV SERVER   iFree.net
+ENV PSK   asdfjkl
+ENV SERVER   localhost
 
 EXPOSE 500/udp 4500/udp
 
