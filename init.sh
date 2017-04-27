@@ -97,11 +97,11 @@ init_mobileconfig() {
             <dict>
                 <!-- Hostname or IP address of the VPN server -->
                 <key>RemoteAddress</key>
-                <string>$SERVER</string>
+                <string>localhost</string>
                 <!-- Remote identity, can be a FQDN, a userFQDN, an IP or (theoretically) a certificate's subject DN. Can't be empty.
                      IMPORTANT: DNs are currently not handled correctly, they are always sent as identities of type FQDN -->
                 <key>RemoteIdentifier</key>
-                <string>$SERVER</string>
+                <string>localhost</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
                 <string></string>
@@ -137,7 +137,7 @@ get_public_ip() {
 main() {
     local server_address secret
     #$(get_public_ip)
-    server_address=$SERVER
+    server_address=localhost
     #"$(openssl rand -base64 32)"
     secret=$PSK
 
