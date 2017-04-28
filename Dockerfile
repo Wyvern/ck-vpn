@@ -18,7 +18,6 @@ VOLUME /www
 
 ENV PROFILE IPSecVPN
 ENV PSK   asdfjkl
-ENV SERVER   localhost
 
 EXPOSE 500/udp 4500/udp
 
