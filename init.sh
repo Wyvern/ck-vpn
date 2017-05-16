@@ -129,10 +129,6 @@ uuidgen() {
         /usr/bin/uuidgen
     fi
 }
-get_public_ip() {
-    # See https://www.ipify.org
-    curl -s https://api.ipify.org
-}
 
 main() {
     local server_address secret

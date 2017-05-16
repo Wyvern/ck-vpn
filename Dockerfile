@@ -16,7 +16,7 @@ ADD web /www
 
 VOLUME /www
 
-ENV PROFILE IPSecVPN
+ENV PROFILE IKE
 ENV PSK   asdfjkl
 
 EXPOSE 500/udp 4500/udp
