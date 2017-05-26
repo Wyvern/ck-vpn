@@ -13,7 +13,6 @@ ADD init.sh /usr/bin/init
 
 # Web
 ADD web /www
-
 VOLUME /www
 
 ENV PROFILE IKE
