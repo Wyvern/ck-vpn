@@ -1,5 +1,5 @@
 FROM alpine:edge
-MAINTAINER vpn <vpn@ifree.net>
+MAINTAINER ivpn <vpn@ifree.net>
 
 # See http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Advanced_APK_Usage
 RUN apk update && apk upgrade && apk add --no-cache iptables libressl strongswan
