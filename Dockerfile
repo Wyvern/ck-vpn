@@ -19,5 +19,4 @@ ENV PROFILE VPN
 ENV PSK   asdfjkl
 
 EXPOSE 500/udp 4500/udp
-
 CMD /usr/bin/init
