@@ -7,7 +7,7 @@ RUN apk update  && apk upgrade && apk add --no-cache iptables libressl strongswa
 ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
 ADD ./vpn_config/strongswan.conf /etc/strongswan.conf
 
-# Apps
+# Apps launch
 ADD init.sh /usr/bin/init
 
 # Web
