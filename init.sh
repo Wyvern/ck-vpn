@@ -37,13 +37,14 @@ config_route() {
     # https://wiki.strongswan.org/projects/strongswan/wiki/ForwardingAndSplitTunneling
     iptables -t nat -A POSTROUTING -s $vip -o eth0 -m policy --dir out --pol ipsec -j ACCEPT
     iptables -t nat -A POSTROUTING -s $vip -o eth0 -j MASQUERADE
+    #iptables -t nat -I POSTROUTING -m policy --pol ipsec --dir out -j ACCEPT
 }
 
 init_ipsec_config() {
     local secret="$1"
 
     echo ": PSK \"$secret\""
-    echo "vpn : EAP \"$secret\""
+    echo "VPN : EAP \"$secret\""
 }
 
 init_mobileconfig() {
@@ -96,11 +97,11 @@ init_mobileconfig() {
             <dict>
                 <!-- Hostname or IP address of the VPN server -->
                 <key>RemoteAddress</key>
-                <string>$SERVER</string>
+                <string>localhost</string>
                 <!-- Remote identity, can be a FQDN, a userFQDN, an IP or (theoretically) a certificate's subject DN. Can't be empty.
                      IMPORTANT: DNs are currently not handled correctly, they are always sent as identities of type FQDN -->
                 <key>RemoteIdentifier</key>
-                <string>$SERVER</string>
+                <string>localhost</string>
                 <!-- Local IKE identity, same restrictions as above. If it is empty the client's IP address will be used -->
                 <key>LocalIdentifier</key>
                 <string></string>
@@ -136,7 +137,7 @@ get_public_ip() {
 main() {
     local server_address secret
     #$(get_public_ip)
-    server_address=$SERVER
+    server_address=localhost
     #"$(openssl rand -base64 32)"
     secret=$PSK
 
@@ -152,12 +153,16 @@ main() {
     echo "IPSec: configuring route tables"
     config_route "$CONFIG_VIP"
 
-    echo "IPSec: starting http server on $server_address:80"
-    httpd -h "$CONFIG_HTTP_HOME"
+    #echo "IPSec: starting http server on $server_address:80"
+    #httpd -h "$CONFIG_HTTP_HOME"
     
     echo "IPSec: starting ipsec"
     #$CK_VPN_IPSEC_DEBUG_OPTS
+<<<<<<< HEAD
     exec /usr/sbin/ipsec start --nofork 
+=======
+    /usr/sbin/ipsec start --nofork
+>>>>>>> origin/master
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
