@@ -1,5 +1,5 @@
 FROM alpine
-MAINTAINER vpn <vpn@ifree.net>
+LABEL vpn="vpn@ifree.net"
 
 # See http://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management#Advanced_APK_Usage
 RUN apk update && apk upgrade && apk add --no-cache iptables libressl strongswan
@@ -17,7 +17,7 @@ ADD web /www
 
 VOLUME /www
 
-ENV PROFILE IPSecVPN
+ENV PROFILE StrongSwan
 ENV PSK   asdfjkl
 
 EXPOSE 500/udp 4500/udp
