@@ -14,7 +14,7 @@ ADD init.sh /usr/bin/init
 ADD web /www
 VOLUME /www
 
-ENV PROFILE VPN
+ENV PROFILE StrongSwan
 ENV PSK   asdfjkl
 
 EXPOSE 500/udp 4500/udp
