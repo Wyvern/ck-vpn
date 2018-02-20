@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM s390x/alpine
 LABEL MAINTAINER="vpn@ifree.net"
 
 RUN apk update  && apk upgrade && apk add --no-cache iptables libressl strongswan
