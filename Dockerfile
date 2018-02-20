@@ -1,7 +1,7 @@
 FROM s390x/alpine
 LABEL MAINTAINER="vpn@ifree.net"
 
-RUN apk update  && apk upgrade && apk add --no-cache iptables libressl strongswan
+RUN apk add --no-cache iptables libressl strongswan
 
 # Strongswan Configuration
 ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
