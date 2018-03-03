@@ -11,8 +11,8 @@ ADD ./vpn_config/strongswan.conf /etc/strongswan.conf
 ADD init.sh /usr/bin/init
 
 # Web
-ADD web /www
-VOLUME /www
+#ADD web /www
+#VOLUME /www
 
 ENV PROFILE StrongSwan
 ENV PSK   asdfjkl
