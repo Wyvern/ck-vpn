@@ -24,8 +24,8 @@
 
 # Customizations
 CONFIG_VIP=10.0.1.0/24
-CONFIG_HTTP_HOME=/www
-CONFIG_MOBILECONFIG_PATH=$CONFIG_HTTP_HOME/vpn.mobileconfig
+#CONFIG_HTTP_HOME=/www
+#CONFIG_MOBILECONFIG_PATH=$CONFIG_HTTP_HOME/vpn.mobileconfig
 CONFIG_IPSEC_SECRETS_PATH=$CONFIG_HTTP_HOME/ipsec.secrets
 
 config_route() {
@@ -141,7 +141,7 @@ main() {
     if [ ! -f "$CONFIG_IPSEC_SECRETS_PATH" ]; then
         echo "IPSec: initializing"
         init_ipsec_config "$secret" >"$CONFIG_IPSEC_SECRETS_PATH"
-        init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
+        #init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
     fi
 
     ln -sf "$CONFIG_IPSEC_SECRETS_PATH" /etc/ipsec.secrets
