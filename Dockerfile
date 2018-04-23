@@ -1,7 +1,7 @@
 FROM alpine:edge
 LABEL MAINTAINER="vpn@ifree.net"
 
-RUN apk update  && apk upgrade && apk add --no-cache strongswan
+RUN apk update  && apk upgrade && apk add --no-cache libressl strongswan
 
 # Strongswan Configuration
 ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
