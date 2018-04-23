@@ -158,7 +158,7 @@ main() {
     
     echo "IPSec: starting ipsec"
     #$CK_VPN_IPSEC_DEBUG_OPTS
-    exec /usr/sbin/ipsec start --nofork
+    /usr/sbin/ipsec start --nofork
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
