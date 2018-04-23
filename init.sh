@@ -145,7 +145,7 @@ main() {
     if [ ! -f "$CONFIG_IPSEC_SECRETS_PATH" ]; then
         echo "IPSec: initializing"
         init_ipsec_config "$secret" >"$CONFIG_IPSEC_SECRETS_PATH"
-        init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
+        #init_mobileconfig "$server_address" "$secret" >"$CONFIG_MOBILECONFIG_PATH"
     fi
 
     ln -sf "$CONFIG_IPSEC_SECRETS_PATH" /etc/ipsec.secrets
@@ -158,11 +158,7 @@ main() {
     
     echo "IPSec: starting ipsec"
     #$CK_VPN_IPSEC_DEBUG_OPTS
-<<<<<<< HEAD
-    exec /usr/sbin/ipsec start --nofork 
-=======
-    /usr/sbin/ipsec start --nofork
->>>>>>> origin/master
+    exec /usr/sbin/ipsec start --nofork
 }
 
 # [[ "$0" == "$BASH_SOURCE" ]] && main "$@"
