@@ -7,7 +7,6 @@ RUN apk update && apk upgrade && apk add build-base \
             ca-certificates \
             curl \
             curl-dev \
-            ip6tables \
             iproute2 \
             iptables-dev \
             openssl \
@@ -36,6 +35,7 @@ RUN apk update && apk upgrade && apk add build-base \
             --enable-newhope \
             --enable-ntru \
             --enable-openssl \
+            --enable-shared \
                 --disable-x509 \
                 --disable-pem \ 
                 --disable-constraints \
