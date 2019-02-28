@@ -1,15 +1,12 @@
-FROM alpine:edge
+FROM alpine
 LABEL MAINTAINER="vpn@ifree.net"
-
-RUN apk update && apk upgrade 
 
 ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
 
-RUN apk add build-base \
+RUN apk update && apk upgrade && apk add build-base \
             ca-certificates \
             curl \
             curl-dev \
-            ip6tables \
             iproute2 \
             iptables-dev \
             openssl \
@@ -31,7 +28,6 @@ RUN apk add build-base \
             --enable-eap-identity \
             --enable-eap-md5 \
             --enable-eap-mschapv2 \
-            --enable-eap-radius \
             --enable-eap-tls \
             --enable-farp \
             --enable-files \
@@ -40,9 +36,14 @@ RUN apk add build-base \
             --enable-newhope \
             --enable-ntru \
             --enable-openssl \
-            --enable-sha3 \
             --enable-shared \
-            --disable-aes \
+                --disable-x509 \
+                --disable-pem \ 
+                --disable-constraints \
+                --disable-aes \
+                --disable-revocation \
+                --disable-scepclient \
+                --disable-curve25519 \
             --disable-des \
             --disable-gmp \
             --disable-hmac \
@@ -52,10 +53,10 @@ RUN apk add build-base \
             --disable-sha1 \
             --disable-sha2 \
             --disable-static && \
-    make && \
+    make -j && \
     make install && \
     rm -rf /tmp/* && \
-    apk del build-base curl-dev openssl-dev && \
+    apk del build-base curl-dev openssl-dev iptables-dev && \
     rm -rf /var/cache/apk/*
 
 # Strongswan Configuration
