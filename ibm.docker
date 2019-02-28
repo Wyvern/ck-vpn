@@ -26,7 +26,6 @@ RUN apk add build-base \
             --enable-eap-identity \
             --enable-eap-md5 \
             --enable-eap-mschapv2 \
-            --enable-eap-radius \
             --enable-eap-tls \
             --enable-farp \
             --enable-files \
@@ -35,9 +34,13 @@ RUN apk add build-base \
             --enable-newhope \
             --enable-ntru \
             --enable-openssl \
-            --enable-sha3 \
-            --enable-shared \
-            --disable-aes \
+                --disable-x509 \
+                --disable-pem \ 
+                --disable-constraints \
+                --disable-aes \
+                --disable-revocation \
+                --disable-scepclient \
+                --disable-curve25519 \
             --disable-des \
             --disable-gmp \
             --disable-hmac \
