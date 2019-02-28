@@ -53,8 +53,7 @@ RUN apk update && apk upgrade && apk add build-base \
             --disable-sha1 \
             --disable-sha2 \
             --disable-static && \
-    make -j && \
-    make install && \
+    make LDFLAGS+=-s -j install && \
     rm -rf /tmp/* && \
     apk del build-base curl-dev openssl-dev iptables-dev && \
     rm -rf /var/cache/apk/*
