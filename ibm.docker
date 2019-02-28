@@ -18,7 +18,11 @@ RUN apk add build-base \
     curl -Lo /tmp/strongswan.tar.bz2 $STRONGSWAN_RELEASE && \
     tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
     cd /tmp/strongswan && \
-    ./configure --enable-chapoly \
+    ./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --libexecdir=/usr/lib \
+            --with-ipsecdir=/usr/lib/strongswan \
+            --enable-chapoly \
             --enable-cmd \
             --enable-curl \
             --enable-dhcp \
@@ -53,7 +57,7 @@ RUN apk add build-base \
     make -j && \
     make install && \
     rm -rf /tmp/* && \
-    apk del build-base curl-dev openssl-dev && \
+    apk del build-base curl-dev openssl-dev iptables-dev && \
     rm -rf /var/cache/apk/*
 
 # Strongswan Configuration
