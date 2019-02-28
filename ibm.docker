@@ -5,10 +5,10 @@ ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
 
 RUN apk update && apk upgrade && apk add build-base \
             curl \
-            curl-dev \
             iproute2 \
             iptables-dev \
-            openssl && \
+            openssl \
+            openssl-dev && \
     mkdir -p /tmp/strongswan && \
     curl -Lo /tmp/strongswan.tar.bz2 $STRONGSWAN_RELEASE && \
     tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
@@ -17,41 +17,32 @@ RUN apk update && apk upgrade && apk add build-base \
             --sysconfdir=/etc \
             --libexecdir=/usr/lib \
             --with-ipsecdir=/usr/lib/strongswan \
-            --enable-chapoly \
-            --enable-cmd \
-            --enable-curl \
-            --enable-dhcp \
             --enable-eap-dynamic \
             --enable-eap-md5 \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
-            --enable-farp \
-            --enable-files \
-            --enable-gcm \
-            --enable-md4 \
-            --enable-newhope \
-            --enable-ntru \
             --enable-openssl \
-                --disable-x509 \
-                --disable-pem \ 
-                --disable-constraints \
-                --disable-aes \
-                --disable-revocation \
-                --disable-scepclient \
-                --disable-curve25519 \
-                --disable-ldap \
+            --disable-x509 \
+            --disable-pem \ 
+            --disable-constraints \
+            --disable-revocation \
+            --disable-scepclient \
+            --disable-aes \
             --disable-des \
+            --disable-rc2 \
             --disable-gmp \
             --disable-hmac \
+            --disable-xcbc \
+            --disable-cmac \
             --disable-ikev1 \
-            --disable-md5 \
-            --disable-rc2 \
-            --disable-sha1 \
-            --disable-sha2 && \
-    make -j && \
-    make install && \
+            --disable-updown \
+            --disable-curl \ 
+            --disable-curve25519 \
+            --disable-eap-radius \
+            --disable-ldap && \
+    make LDFLAGS+=-s -j install && \
     rm -rf /tmp/* && \
-    apk del build-base curl-dev iptables-dev && \
+    apk del build-base iptables-dev openssl-dev && \
     rm -rf /var/cache/apk/*
 
 # Strongswan Configuration
