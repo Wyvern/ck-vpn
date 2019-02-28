@@ -24,7 +24,6 @@ RUN apk update && apk upgrade && apk add build-base \
             --enable-curl \
             --enable-dhcp \
             --enable-eap-dynamic \
-            --enable-eap-identity \
             --enable-eap-md5 \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
@@ -35,7 +34,6 @@ RUN apk update && apk upgrade && apk add build-base \
             --enable-newhope \
             --enable-ntru \
             --enable-openssl \
-            --enable-shared \
                 --disable-x509 \
                 --disable-pem \ 
                 --disable-constraints \
@@ -43,6 +41,7 @@ RUN apk update && apk upgrade && apk add build-base \
                 --disable-revocation \
                 --disable-scepclient \
                 --disable-curve25519 \
+                --disable-ldap \
             --disable-des \
             --disable-gmp \
             --disable-hmac \
@@ -50,8 +49,7 @@ RUN apk update && apk upgrade && apk add build-base \
             --disable-md5 \
             --disable-rc2 \
             --disable-sha1 \
-            --disable-sha2 \
-            --disable-static && \
+            --disable-sha2 && \
     make -j && \
     make install && \
     rm -rf /tmp/* && \
