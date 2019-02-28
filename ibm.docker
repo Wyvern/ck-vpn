@@ -1,11 +1,9 @@
 FROM s390x/alpine
 LABEL MAINTAINER="vpn@ifree.net"
 
-RUN apk update && apk upgrade 
-
 ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
 
-RUN apk add build-base \
+RUN apk update && apk upgrade && apk add build-base \
             ca-certificates \
             curl \
             curl-dev \
