@@ -1,0 +1,63 @@
+FROM s390x/alpine
+LABEL MAINTAINER="vpn@ifree.net"
+
+ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
+
+RUN apk update && apk upgrade && apk add curl iproute2 openssl
+RUN apk add build-base iptables-dev openssl-dev &&\
+    mkdir -p /tmp/strongswan && \
+    curl -Lo /tmp/strongswan.tar.bz2 $STRONGSWAN_RELEASE && \
+    tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
+    cd /tmp/strongswan && \
+    ./configure --prefix=/usr \
+            --sysconfdir=/etc \
+            --libexecdir=/usr/lib \
+            --with-ipsecdir=/usr/lib/strongswan \
+            --enable-openssl \
+            --disable-x509 \
+            --disable-pem \ 
+            --disable-constraints \
+            --disable-revocation \
+            --disable-scepclient \
+            --disable-aes \
+            --disable-des \
+            --disable-rc2 \
+            --disable-gmp \
+            --disable-hmac \
+            --disable-xcbc \
+            --disable-cmac \
+            --disable-ikev1 \
+            --disable-sha1 \
+            --disable-updown \
+            --disable-curl \ 
+            --disable-pki \
+            --disable-pkcs1 \
+            --disable-pkcs7 \
+            --disable-pkcs8 \
+            --disable-pkcs12 \
+            --disable-pubkey \
+            --disable-curve25519 \
+            --disable-eap-radius \
+            --disable-ldap && \
+    make LDFLAGS+=-s -j install && \
+    rm -rf /tmp/* && \
+    apk del build-base iptables-dev openssl-dev && \
+    rm -rf /var/cache/apk/*
+
+# Strongswan Configuration
+ADD ./vpn_config/ipsec.conf /etc/ipsec.conf
+ADD ./vpn_config/strongswan.conf /etc/strongswan.conf
+
+# Apps
+ADD init.sh /usr/bin/init
+
+# Web
+#ADD web /www
+#VOLUME /www
+
+ENV PROFILE StrongSwan
+ENV PSK   asdfjkl
+
+EXPOSE 500/udp 4500/udp
+
+CMD /usr/bin/init
