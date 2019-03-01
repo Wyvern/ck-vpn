@@ -35,8 +35,10 @@ RUN apk update && apk upgrade && apk add build-base \
             --disable-xcbc \
             --disable-cmac \
             --disable-ikev1 \
+            --disable-sha1 \
             --disable-updown \
             --disable-curl \ 
+            --disable-pki \
             --disable-curve25519 \
             --disable-eap-radius \
             --disable-ldap && \
