@@ -4,7 +4,7 @@ LABEL MAINTAINER="vpn@ifree.net"
 ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
 
 RUN apk update && apk upgrade && apk add curl iproute2 openssl
-RUN apk add build-base iptables-dev openssl-dev &&\
+RUN apk add build-base iptables-dev openssl-dev && \
     mkdir -p /tmp/strongswan && \
     curl -Lo /tmp/strongswan.tar.bz2 $STRONGSWAN_RELEASE && \
     tar --strip-components=1 -C /tmp/strongswan -xjf /tmp/strongswan.tar.bz2 && \
