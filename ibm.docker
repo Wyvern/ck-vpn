@@ -39,6 +39,11 @@ RUN apk update && apk upgrade && apk add build-base \
             --disable-updown \
             --disable-curl \ 
             --disable-pki \
+            --disable-pkcs1 \
+            --disable-pkcs7 \
+            --disable-pkcs8 \
+            --disable-pkcs12 \
+            --disable-pubkey \
             --disable-curve25519 \
             --disable-eap-radius \
             --disable-ldap && \
