@@ -13,8 +13,8 @@ RUN apk add build-base iptables-dev openssl-dev && \
             --sysconfdir=/etc \
             --libexecdir=/usr/lib \
             --with-ipsecdir=/usr/lib/strongswan \
-            --enable-eap-dynamic \
             --enable-eap-md5 \
+            --enable-eap-identity \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
             --enable-openssl \
