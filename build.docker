@@ -3,10 +3,9 @@ LABEL MAINTAINER="vpn@ifree.net"
 
 ENV STRONGSWAN_RELEASE https://download.strongswan.org/strongswan.tar.bz2
 
-RUN apk update && apk upgrade && apk add build-base \
-            ca-certificates \
+RUN apk update && apk upgrade 
+RUN apk add build-base \
             curl \
-            curl-dev \
             iproute2 \
             iptables-dev \
             openssl \
@@ -20,21 +19,9 @@ RUN apk update && apk upgrade && apk add build-base \
             --libexecdir=/usr/lib \
             --with-ipsecdir=/usr/lib/strongswan \
             --enable-aesni \
-            --enable-chapoly \
-            --enable-cmd \
-            --enable-curl \
-            --enable-dhcp \
-            --enable-eap-dynamic \
             --enable-eap-identity \
-            --enable-eap-md5 \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
-            --enable-farp \
-            --enable-files \
-            --enable-gcm \
-            --enable-md4 \
-            --enable-newhope \
-            --enable-ntru \
             --enable-openssl \
             --enable-shared \
                 --disable-x509 \
