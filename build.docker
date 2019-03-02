@@ -23,7 +23,6 @@ RUN apk add build-base \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
             --enable-openssl \
-            --enable-shared \
                 --disable-x509 \
                 --disable-pem \ 
                 --disable-constraints \
@@ -38,8 +37,7 @@ RUN apk add build-base \
             --disable-md5 \
             --disable-rc2 \
             --disable-sha1 \
-            --disable-sha2 \
-            --disable-static && \
+            --disable-sha2 && \
     make LDFLAGS+=-s -j install && \
     rm -rf /tmp/* && \
     apk del build-base curl-dev openssl-dev iptables-dev && \
