@@ -23,21 +23,31 @@ RUN apk add build-base \
             --enable-eap-mschapv2 \
             --enable-eap-tls \
             --enable-openssl \
-                --disable-x509 \
-                --disable-pem \ 
-                --disable-constraints \
-                --disable-aes \
-                --disable-revocation \
-                --disable-scepclient \
-                --disable-curve25519 \
+            --disable-x509 \
+            --disable-pem \ 
+            --disable-constraints \
+            --disable-revocation \
+            --disable-scepclient \
+            --disable-aes \
             --disable-des \
+            --disable-rc2 \
             --disable-gmp \
             --disable-hmac \
+            --disable-xcbc \
+            --disable-cmac \
             --disable-ikev1 \
-            --disable-md5 \
-            --disable-rc2 \
             --disable-sha1 \
-            --disable-sha2 && \
+            --disable-updown \
+            --disable-curl \ 
+            --disable-pki \
+            --disable-pkcs1 \
+            --disable-pkcs7 \
+            --disable-pkcs8 \
+            --disable-pkcs12 \
+            --disable-pubkey \
+            --disable-curve25519 \
+            --disable-eap-radius \
+            --disable-ldap && \
     make LDFLAGS+=-s -j install && \
     rm -rf /tmp/* && \
     apk del build-base curl-dev openssl-dev iptables-dev && \
